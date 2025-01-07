@@ -1,4 +1,4 @@
-name: Build Windows Executable
+name: Build Python Executable
 
 on: [push, pull_request]
 
@@ -20,9 +20,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install pyinstaller
 
-    - name: Install Wine
-      run: sudo apt-get install -y wine
-
     - name: List files before build
       run: |
         ls -la
@@ -33,7 +30,7 @@ jobs:
 
     - name: Build executable
       run: |
-        pyinstaller --onefile --distpath src --name main.exe src/main.py
+        pyinstaller --onefile --distpath src src/main.py
 
     - name: List files after build
       run: |
@@ -44,7 +41,8 @@ jobs:
       run: |
         git config --global user.name "GitHub Actions"
         git config --global user.email "actions@github.com"
-        git add src/main.exe
+        ls -la src/
+        git add src/main
         git commit -m "Add built executable"
         git push origin HEAD:$(git rev-parse --abbrev-ref HEAD)
       env:
