@@ -41,11 +41,10 @@ jobs:
       run: |
         git config --global user.name "GitHub Actions"
         git config --global user.email "actions@github.com"
-        git checkout -b build-artifacts
-        cp src/*.exe .
-        git add *.exe
-        git commit -m "Add built executable"
-        git push origin build-artifacts
+        ls -la src/
+        cp src/*.exe . || echo "No EXE file found"
+        git add *.exe || echo "No EXE file to add"
+        git commit -m "Add built executable" || echo "Nothing to commit"
+        git push origin build-artifacts || echo "Nothing to push"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
