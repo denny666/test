@@ -22,10 +22,10 @@ jobs:
 
     - name: Build executable
       run: |
-        pyinstaller --onefile src/main.py
+        pyinstaller --onefile --distpath src src/main.py
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
         name: python-executable
-        path: dist/
+        path: src/
